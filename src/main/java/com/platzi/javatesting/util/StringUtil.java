@@ -2,6 +2,8 @@ package com.platzi.javatesting.util;
 
 public class StringUtil {
     public static String repeat(String str, int times){
+        // validar prueba negativa
+        if (times <0) throw new IllegalArgumentException("negative times not allowed");
 
         String result = "";
 
