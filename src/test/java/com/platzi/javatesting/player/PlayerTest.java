@@ -33,4 +33,19 @@ public class PlayerTest {
 
         assertTrue(player.play());
     }
+
+    @Test
+    public void tie_when_dice_number_is_the_same(){
+        // dado: simular dado
+        Dice dice = Mockito.mock(Dice.class);
+
+        // simular resultado, cuando se llame al roll, retorne un 4
+        Mockito.when(dice.roll()).thenReturn(3);
+
+        // jugador
+        Player player = new Player(dice,3);
+
+        assertFalse(player.play());
+
+    }
 }
