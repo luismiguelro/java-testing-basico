@@ -1,5 +1,6 @@
 package com.platzi.javatesting.payments;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -7,36 +8,37 @@ import org.mockito.Mockito;
 import static org.junit.Assert.*;
 
 public class PaymentProccesorTest {
+
+    private PaymentGateway paymentGateway;
+    private PaymentProccesor paymentProccesor;
+
+    //Metodo comun: partes comunes de los tests
+    @Before // se ejecuta antes de los test
+    public void setup(){
+        // Simular la pasarela de pago con Mockito
+        paymentGateway = Mockito.mock(PaymentGateway.class);
+        // Procesador de pagos
+        paymentProccesor = new PaymentProccesor(paymentGateway);
+    }
     // pago correcto
     @Test
     public void payment_is_correct() {
-
-        // Simular la pasarela de pago con Mockito
-        PaymentGateway paymentGateway = Mockito.mock(PaymentGateway.class);
-
         // simular resultado: Mockito.any()-> Realizar cualquier tipo de request
         Mockito.when(paymentGateway.requestPayment(Mockito.any()))
                 .thenReturn(new PaymentResponse(PaymentResponse.PaymentStatus.OK));
-
-        // Procesador de pagos
-        PaymentProccesor paymentProccesor = new PaymentProccesor(paymentGateway);
 
         // Probar que el pago sea correcto
         assertTrue(paymentProccesor.makePayment(1000));
     }
 
     // pago erroneo
+    @Test
     public void payment_is_wrong() {
-
-        // Simular la pasarela de pago con Mockito
-        PaymentGateway paymentGateway = Mockito.mock(PaymentGateway.class);
 
         // simular resultado: Mockito.any()-> Realizar cualquier tipo de request
         Mockito.when(paymentGateway.requestPayment(Mockito.any()))
                 .thenReturn(new PaymentResponse(PaymentResponse.PaymentStatus.ERROR));
 
-        // Procesador de pagos
-        PaymentProccesor paymentProccesor = new PaymentProccesor(paymentGateway);
 
         // Probar que el pago no sea correcto
         assertFalse(paymentProccesor.makePayment(1000));

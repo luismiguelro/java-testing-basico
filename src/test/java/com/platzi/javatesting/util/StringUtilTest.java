@@ -2,6 +2,8 @@ package com.platzi.javatesting.util;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class StringUtilTest {
 
     // inidicar que es un test
@@ -34,4 +36,24 @@ public class StringUtilTest {
         // Comprobar mediante una funcion de JUnit
         StringUtil.repeat("Hola",-1);
     }
+
+    // Solucion reto
+    @Test
+    public void string_is_not_empty(){
+        assertFalse(StringUtil.isEmpty("Hola"));
+    }
+    @Test
+    public void empty_quote_is_empty(){
+        assertTrue(StringUtil.isEmpty(""));
+    }
+    @Test
+    public void null_is_empty(){
+        assertTrue(StringUtil.isEmpty(null));
+    }
+
+    @Test
+    public void spaces_is_empty(){
+        assertTrue(StringUtil.isEmpty(" "));
+    }
+
 }
