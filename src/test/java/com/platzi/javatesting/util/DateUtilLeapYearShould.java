@@ -19,7 +19,7 @@ public class DateUtilLeapYearShould {
     @Test
     public void return_true_when_year_is_divisible_by_400() {
 
-        assertThat(DateUtil.isLeapYear(1600), is(true));
+        assertThat(DateUtil.isLeapYear(1600), is(true)); // Llamar funcion, y el valor qu esperamos (comprobador)
         assertThat(DateUtil.isLeapYear(2000), is(true));
         assertThat(DateUtil.isLeapYear(2400), is(true));
     }
