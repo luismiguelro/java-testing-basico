@@ -5,6 +5,7 @@ import com.platzi.javatesting.movies.model.Genre;
 import com.platzi.javatesting.movies.model.Movie;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MovieService {
@@ -18,5 +19,11 @@ public class MovieService {
 
         return movieRepository.findAll()
                 .stream().filter(movie -> movie.getGenre() == genre).collect(Collectors.toList());
+    }
+
+
+    public Collection <Movie> findMoviesByLength(int length) {
+        return movieRepository.findAll()
+                .stream().filter(movie -> movie.getMinutes() <= length).collect(Collectors.toList());
     }
 }

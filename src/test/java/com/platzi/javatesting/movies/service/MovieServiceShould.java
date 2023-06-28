@@ -4,6 +4,7 @@ import com.platzi.javatesting.movies.data.MovieRepository;
 import com.platzi.javatesting.movies.model.Genre;
 import com.platzi.javatesting.movies.model.Movie;
 import org.hamcrest.CoreMatchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -15,8 +16,9 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class MovieServiceShould {
-    @Test
-    public void return_movies_by_genre() {
+    private MovieService movieService ;
+    @Before
+    public void setUp() throws Exception {
         MovieRepository movieRepository = Mockito.mock(MovieRepository.class);
 
         //Simular el resultado de las peliculas
@@ -31,16 +33,33 @@ public class MovieServiceShould {
                         new Movie(7, "Matrix", 136, Genre.ACTION)
                 )
         );
+        movieService = new MovieService(movieRepository);
+    }
 
-        MovieService movieService = new MovieService(movieRepository);
-
+    @Test
+    public void return_movies_by_genre() {
         // encontrar por genero indicado
         Collection <Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
 
         //Obtener id y recolectar en una lista
-        List<Integer> moviesIds=movies.stream().map(movie -> movie.getId()).collect(Collectors.toList());
 
         //comprobar la coleccion resultadnte
-        assertThat(moviesIds, CoreMatchers.is(Arrays.asList(3,6)));
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(3,6)));
+    }
+
+    @Test
+    public void return_movies_by_length() {
+        // encontrar duracion
+        Collection <Movie> movies = movieService.findMoviesByLength(119);
+
+        //Obtener id y recolectar en una lista
+
+        //comprobar la coleccion resultadnte
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
+    }
+
+    private static List<Integer> getMovieIds(Collection<Movie> movies) {
+        List<Integer> moviesIds= movies.stream().map(Movie::getId).collect(Collectors.toList());
+        return moviesIds;
     }
 }
