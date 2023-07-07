@@ -24,8 +24,8 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return null;
     }
 
-    @Override
-    public Collection<Movie> findAll() {
+
+    public Collection <Movie> findAll() {
         return jdbcTemplate.query("select * from movies", movieMapper);
     }
 
