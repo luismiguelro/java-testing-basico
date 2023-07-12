@@ -73,6 +73,15 @@ public class MovieRepositoryIntegrationTest {
         assertThat(movieFrom,is( new Movie(  4,"Super 8",112, THRILLER)));
     }
 
+    @Test
+    public void load_movie_by_name() {
+        Collection<Movie> movies = movieRepository.movieByName("dark");
+
+        assertThat(movies, CoreMatchers.is(Arrays.asList(
+                new Movie(1, "Dark Knight", 152, Genre.ACTION)
+                )));
+    }
+
     // reiniciar BD
     @After
     public void tearDown() throws Exception {

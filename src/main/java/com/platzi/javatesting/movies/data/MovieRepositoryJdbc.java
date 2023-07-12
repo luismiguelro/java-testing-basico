@@ -36,6 +36,12 @@ public class MovieRepositoryJdbc implements MovieRepository {
                 movie.getMinutes(),movie.getGenre().toString());
     }
 
+    @Override
+    public Collection<Movie> movieByName(String name) {
+        return jdbcTemplate.query("SELECT * FROM MOVIES WHERE LOWER(name) LIKE '%" + name.toLowerCase() + "%'", movieMapper);
+    }
+
+
     //Convertir datos de la BD en objeto java
 
     private static RowMapper<Movie> movieMapper = (rs, rowNum) ->
