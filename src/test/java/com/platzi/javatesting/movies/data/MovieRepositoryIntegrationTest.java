@@ -48,29 +48,29 @@ public class MovieRepositoryIntegrationTest {
 
         // comprobar
         assertThat(movies, CoreMatchers.is(Arrays.asList(
-                new Movie(1, "Dark Knight", 152, ACTION),
-                new Movie(2, "Memento", 113, THRILLER),
-                new Movie(3, "Matrix", 136, ACTION)
+                new Movie(1, "Dark Knight", "Christopher Nolan", 152, ACTION),
+                new Movie(2, "Memento", "Christopher Nolan", 113, THRILLER),
+                new Movie(3, "Matrix", "Wachowski", 136, ACTION)
         )));
     }
     @Test
     public void load_movie_by_id() {
         Movie movie = movieRepository.findById(2);
 
-        assertThat(movie,is( new Movie(2, "Memento", 113, THRILLER)));
+        assertThat(movie,is( new Movie(2, "Memento", "Christopher Nolan", 113, THRILLER)));
 
     }
 
     @Test
     public void insert_a_movie() {
          //crear pelicula
-        Movie movie = new Movie("Super 8",112, THRILLER);
+        Movie movie = new Movie("Super 8","J.J.Abrams",112, THRILLER);
 
         movieRepository.saveOrUpdate(movie);
 
         Movie movieFrom = movieRepository.findById(4);
 
-        assertThat(movieFrom,is( new Movie(  4,"Super 8",112, THRILLER)));
+        assertThat(movieFrom,is( new Movie(  4,"Super 8", "J.J.Abrams", 112, THRILLER)));
     }
 
     @Test
@@ -78,8 +78,36 @@ public class MovieRepositoryIntegrationTest {
         Collection<Movie> movies = movieRepository.movieByName("dark");
 
         assertThat(movies, CoreMatchers.is(Arrays.asList(
-                new Movie(1, "Dark Knight", 152, Genre.ACTION)
+                new Movie(1, "Dark Knight", "Christopher Nolan", 152, Genre.ACTION)
                 )));
+    }
+
+    @Test
+    public void load_movie_by_name_opc() {
+        Collection<Movie> movies = movieRepository.movieByName_opc("Ma");
+
+        assertThat(movies, CoreMatchers.is(Arrays.asList(
+                new Movie(3, "Matrix", "Wachowski", 136, ACTION)
+        )));
+    }
+
+    @Test
+    public void load_movie_by_director() {
+        Collection<Movie> movies = movieRepository.movieByDirector("Christopher");
+
+        assertThat(movies, CoreMatchers.is(Arrays.asList(
+                new Movie(1, "Dark Knight", "Christopher Nolan", 152, Genre.ACTION),
+                new Movie(2, "Memento", "Christopher Nolan", 113, THRILLER)
+        )));
+    }
+
+    @Test
+    public void load_movie_by_director_opc() {
+        Collection<Movie> movies = movieRepository.movieByDirector_opc("Wachowski");
+
+        assertThat(movies, CoreMatchers.is(Arrays.asList(
+                new Movie(3, "Matrix", "Wachowski", 136, ACTION)
+        )));
     }
 
     // reiniciar BD

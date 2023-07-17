@@ -5,11 +5,9 @@ import com.platzi.javatesting.movies.model.Movie;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import javax.swing.tree.TreePath;
-import javax.xml.transform.Result;
-import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieRepositoryJdbc implements MovieRepository {
 
@@ -32,13 +30,32 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     @Override
     public void saveOrUpdate(Movie movie) {
-        jdbcTemplate.update("insert into movies (name,minutes,genre) values (?,?,?)",movie.getName(),
-                movie.getMinutes(),movie.getGenre().toString());
+        jdbcTemplate.update("insert into movies (name,name_director,minutes,genre) values (?,?,?,?)",movie.getName(),
+               movie.getName_director(), movie.getMinutes(),movie.getGenre().toString());
     }
 
     @Override
     public Collection<Movie> movieByName(String name) {
         return jdbcTemplate.query("SELECT * FROM MOVIES WHERE LOWER(name) LIKE '%" + name.toLowerCase() + "%'", movieMapper);
+    }
+
+
+    // otro metodo para encontrar peliculas
+    @Override
+    public Collection<Movie> movieByName_opc(String name){
+        List<Movie> collect = findAll().stream().filter(movie -> movie.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+        return collect;
+    }
+
+    @Override
+    public Collection<Movie> movieByDirector(String name) {
+        List<Movie> collect = findAll().stream().filter(movie -> movie.getName_director().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+        return collect;
+    }
+
+    // opcion 2 para director
+    public Collection<Movie> movieByDirector_opc(String name) {
+        return jdbcTemplate.query("SELECT * FROM MOVIES WHERE LOWER(name_director) LIKE '%" + name.toLowerCase() + "%'", movieMapper);
     }
 
 
@@ -48,6 +65,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
             new Movie(
                     rs.getInt("id"),
                     rs.getString("name"),
+                    rs.getString("name_director"),
                     rs.getInt("minutes"),
                     Genre.valueOf(rs.getString("genre")));
 }
