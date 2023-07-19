@@ -8,20 +8,22 @@ public class Movie {
     private String name;
 
     private String name_director;
-    private int minutes;
+    private Integer minutes;
     private Genre genre;
 
-    public Movie(String name,  String nameDirector, int minutes, Genre genre) {
+    public Movie(String name,  String nameDirector, Integer minutes, Genre genre) {
         this(null, name, nameDirector, minutes, genre);
     }
 
-    public Movie(Integer id, String name, String nameDirector, int minutes, Genre genre) {
+    public Movie(Integer id, String name, String nameDirector, Integer minutes, Genre genre) {
         this.id = id;
         this.name = name;
         this.name_director = nameDirector;
         this.minutes = minutes;
         this.genre = genre;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -35,7 +37,7 @@ public class Movie {
         return name_director;
     }
 
-    public int getMinutes() {
+    public Integer getMinutes() {
         return minutes;
     }
 

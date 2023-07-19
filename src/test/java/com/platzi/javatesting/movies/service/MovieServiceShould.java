@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.platzi.javatesting.movies.model.Genre.COMEDY;
 import static org.junit.Assert.*;
 
 public class MovieServiceShould {
@@ -26,10 +27,10 @@ public class MovieServiceShould {
                 Arrays.asList(
                         new Movie(1, "Dark Knight", "Christopher", 152, Genre.ACTION),
                         new Movie(2, "Memento", "Christopher", 113, Genre.THRILLER),
-                        new Movie(3, "There's Something About Marty", "h", 119, Genre.COMEDY),
+                        new Movie(3, "There's Something About Marty", "h", 119, COMEDY),
                         new Movie(4, "Super 8", "Christopher", 112, Genre.THRILLER),
                         new Movie(5, "Scream", "Christopher", 111, Genre.HORROR),
-                        new Movie(6, "Home Alone", "Christopher", 103, Genre.COMEDY),
+                        new Movie(6, "Home Alone", "Christopher", 103, COMEDY),
                         new Movie(7, "Matrix", "Christopher", 136, Genre.ACTION)
                 )
         );
@@ -39,7 +40,7 @@ public class MovieServiceShould {
     @Test
     public void return_movies_by_genre() {
         // encontrar por genero indicado
-        Collection <Movie> movies = movieService.findMoviesByGenre(Genre.COMEDY);
+        Collection <Movie> movies = movieService.findMoviesByGenre(COMEDY);
 
         //Obtener id y recolectar en una lista
 
@@ -62,4 +63,11 @@ public class MovieServiceShould {
         List<Integer> moviesIds= movies.stream().map(Movie::getId).collect(Collectors.toList());
         return moviesIds;
     }
+
+    @Test
+    public void return_movies_by_template() {
+        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie("memento","Christopher",null,COMEDY));
+        assertThat(g);
+    }
+
 }
