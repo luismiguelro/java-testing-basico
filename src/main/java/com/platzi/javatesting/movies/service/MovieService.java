@@ -32,6 +32,8 @@ public class MovieService {
                 movie -> {
                     return movie.getName().equalsIgnoreCase(template.getName()) ||
                             movie.getName_director().equalsIgnoreCase(template.getName_director()) ||
+                            (movie.getName_director().equalsIgnoreCase(template.getName_director()) ==
+                            movie.getGenre().equals(template.getGenre())) ||
                             movie.getGenre().equals(template.getGenre()) ||
                             movie.getMinutes().equals(template.getMinutes());
                 }).collect(Collectors.toList());

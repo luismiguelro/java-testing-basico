@@ -10,10 +10,12 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.platzi.javatesting.movies.model.Genre.COMEDY;
+import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.junit.Assert.*;
 
 public class MovieServiceShould {
@@ -64,10 +66,32 @@ public class MovieServiceShould {
         return moviesIds;
     }
 
+    // Tests templayr
     @Test
-    public void return_movies_by_template() {
-        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie("memento","Christopher",null,COMEDY));
-        assertThat(g);
+    public void return_movies_by_name() {
+        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie("memento",null,null,null));
+        // comprobar
+        assertThat(getMovieIds(movies),CoreMatchers.is(Arrays.asList(2)));
+    }
+
+    @Test
+    public void return_movies_by_director() {
+        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie(null,"Christopher",null,null));
+        // comprobar
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(1,2,4,5,6,7)));
+    }
+    @Test
+    public void return_movies_by_negative_length() {
+        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie(null,null,-155,null));
+        // comprobar
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList()));
+    }
+
+    @Test
+    public void return_movies_by_genre_template() {
+        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie(null,"Christopher",null,Genre.COMEDY));
+        // comprobar
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(6)));
     }
 
 }

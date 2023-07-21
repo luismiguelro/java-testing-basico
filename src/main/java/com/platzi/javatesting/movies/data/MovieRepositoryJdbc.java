@@ -54,6 +54,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
     }
 
     // opcion 2 para director
+    @Override
     public Collection<Movie> movieByDirector_opc(String name) {
         return jdbcTemplate.query("SELECT * FROM MOVIES WHERE LOWER(name_director) LIKE '%" + name.toLowerCase() + "%'", movieMapper);
     }
