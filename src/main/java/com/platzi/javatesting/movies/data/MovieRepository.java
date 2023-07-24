@@ -17,4 +17,6 @@ public interface MovieRepository {
 
     Collection<Movie> movieByDirector_opc(String name);
 
+    // buscar por duracion
+    Collection<Movie> movieByLength(Integer length);
 }

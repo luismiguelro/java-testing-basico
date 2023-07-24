@@ -103,12 +103,14 @@ public class MovieRepositoryIntegrationTest {
 
     @Test
     public void load_movie_by_director_opc() {
+
         Collection<Movie> movies = movieRepository.movieByDirector_opc("Wachowski");
 
         assertThat(movies, CoreMatchers.is(Arrays.asList(
                 new Movie(3, "Matrix", "Wachowski", 136, ACTION)
         )));
     }
+
 
     // reiniciar BD
     @After

@@ -60,6 +60,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
     }
 
 
+
     //Convertir datos de la BD en objeto java
 
     private static RowMapper<Movie> movieMapper = (rs, rowNum) ->

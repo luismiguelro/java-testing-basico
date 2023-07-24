@@ -88,10 +88,17 @@ public class MovieServiceShould {
     }
 
     @Test
-    public void return_movies_by_genre_template() {
-        Collection <Movie> movies = movieService.findMoviesByTemplate(new Movie(null,"Christopher",null,Genre.COMEDY));
+    public void return_movies_by_genre_and_director_template() {
+        Collection <Movie> movies = movieService.findByTemplate(new Movie(null,"Christopher",null,Genre.COMEDY));
         // comprobar
         assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(6)));
+    }
+
+    @Test
+    public void return_movies_by_genre_and_length_template() {
+        Collection <Movie> movies = movieService.findByTemplate(new Movie(null,null,130,Genre.ACTION));
+        // comprobar
+        assertThat(getMovieIds(movies), CoreMatchers.is(Arrays.asList(1,7)));
     }
 
 }
