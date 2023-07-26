@@ -59,6 +59,10 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return jdbcTemplate.query("SELECT * FROM MOVIES WHERE LOWER(name_director) LIKE '%" + name.toLowerCase() + "%'", movieMapper);
     }
 
+    @Override
+    public Collection<Movie> movieByLength(Integer length) {
+        return null;
+    }
 
 
     //Convertir datos de la BD en objeto java
