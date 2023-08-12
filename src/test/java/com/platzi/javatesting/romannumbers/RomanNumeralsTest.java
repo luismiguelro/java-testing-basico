@@ -14,7 +14,7 @@ public class RomanNumeralsTest {
 
     @Test
     public void roman_number_three() {
-        assertThat(arabicToRoman(3), is("III"));
+        assertThat(arabicToRoman(450), is("CDL"));
 
     }
     @Test

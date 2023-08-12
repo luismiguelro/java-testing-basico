@@ -38,7 +38,7 @@ public class RomanNumerals {
             //validar que el numero sea menor a 4000 debido a que el formato cambia
 
             if(n>0 && n<4000){
-                int index = 0;
+                int index = 0; //
                 while (n>0 && index<romanNumerals.size()){
                     romanNumeral currentRoman = romanNumerals.get(index);
 
