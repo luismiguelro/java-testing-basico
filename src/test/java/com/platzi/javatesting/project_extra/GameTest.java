@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameTest {
+public class  GameTest {
 
     public static final int OPTION_ROCK = 0;
     public static final int OPTION_PAPER = 1;
