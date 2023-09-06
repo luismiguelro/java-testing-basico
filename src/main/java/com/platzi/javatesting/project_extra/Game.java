@@ -29,7 +29,7 @@ public class Game {
         {
             GameOption choicenum = getChoiceNum(choice);
 
-            if (choicenum == null){
+
 
                 while(choicenum == null) //continue while user input is still not valid
                 {
@@ -38,7 +38,7 @@ public class Game {
 
                     choicenum = getChoiceNum(choice);
                 }
-            }
+
 
 
             GameOption compnum = getChoiceComputer();
@@ -62,29 +62,29 @@ public class Game {
 
         if(choicenum == compnum) //tie cases
         {
-            System.out.println("It's a tie");
-            scoreBoard.incrementTies();
+            tie(scoreBoard);
         }
-        else if (choicenum == GameOption.ROCK && compnum == GameOption.SCISSORS) //user wins rock vs scissors
+        else if (choicenum == GameOption.ROCK && compnum == GameOption.SCISSORS || choicenum == GameOption.SCISSORS && compnum == GameOption.PAPER || (choicenum ==GameOption.PAPER && compnum == GameOption.ROCK)) //user wins rock vs scissors
         {
-            System.out.println("you win!");
-           scoreBoard.incrementWins();
+            wins(scoreBoard);
         }
-        else if (choicenum == GameOption.SCISSORS && compnum == GameOption.PAPER) //user wins scissors vs paper
-        {
-            System.out.println("you win!");
-            scoreBoard.incrementWins();
-        }
-        else if (choicenum == GameOption.PAPER && compnum == GameOption.ROCK) //user wins paper vs rock
-        {
-            System.out.println("you win!");
-            scoreBoard.incrementWins();
-        }
-        else //otherwise computer wins
-        {
-            System.out.println("you lose.");
-           scoreBoard.incrementLosses();
-        }
+        lose(scoreBoard);
+
+    }
+
+    private static void lose(ScoreBoard scoreBoard) {
+        System.out.println("you lose.");
+        scoreBoard.incrementLosses();
+    }
+
+    private static void tie(ScoreBoard scoreBoard) {
+        System.out.println("It's a tie");
+        scoreBoard.incrementTies();
+    }
+
+    private static void wins(ScoreBoard scoreBoard) {
+        System.out.println("you win!");
+        scoreBoard.incrementWins();
     }
 
     public GameOption getChoiceNum(@NotNull String choice){
